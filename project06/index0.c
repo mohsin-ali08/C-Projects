@@ -1,25 +1,45 @@
-#include<stdio.h>
-#include<conio.h>
-#include<graphics.h>
-#include<dos.h>
+#include <graphics.h>
+#include <conio.h>
 
-	void main()
-		{\
-		int gd=DETECT,gm, i;
-		//int x1=100,y1=100,x2=100,y2=100;
-		int x1=100,y1=100,x2=150,y2=100;
-		initgraph(&gd,&gm,"C:\\TC\\BGI");
-		cleardevice();
+void drawCat(int x, int y) {
+    // Face
+    circle(x, y, 100);  // Head
 
-		for(i=1;i<=20;i++)
-			{
-		cleardevice();
-		line(x1,y1,x2,y2);
-		x1+=5;
-		x2+=5;
+    // Eyes
+    circle(x - 40, y - 30, 15);  // Left eye
+    circle(x + 40, y - 30, 15);  // Right eye
+    setfillstyle(SOLID_FILL, BLACK);
+    floodfill(x - 40, y - 30, WHITE); // Fill left eye
+    floodfill(x + 40, y - 30, WHITE); // Fill right eye
 
-		delay(300);
-			 }
-		getch();
-		closegraph();
-		}
+    // Pupils
+    circle(x - 40, y - 30, 5);
+    circle(x + 40, y - 30, 5);
+    setfillstyle(SOLID_FILL, BLACK);
+    floodfill(x - 40, y - 30, BLACK);
+    floodfill(x + 40, y - 30, BLACK);
+
+    // Nose
+    circle(x, y, 7);
+    setfillstyle(SOLID_FILL, RED);
+    floodfill(x, y, WHITE); // Fill nose
+
+
+    // Smile
+    arc(x, y + 20, 210, 330, 40);
+
+    // Eyebrows (Adjusted)
+    line(x - 50, y - 50, x - 25, y - 55);
+    line(x + 50, y - 50, x + 25, y - 55);
+}
+
+int main() {
+    int gd = DETECT, gm;
+    initgraph(&gd, &gm, "C:\\TURBOC3\\BGI");
+
+    drawCat(250, 200); // Draw the improved cat face
+
+    getch();
+    closegraph();
+    return 0;
+}
